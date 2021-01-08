@@ -4,19 +4,19 @@ import { useNavigation } from '@react-navigation/native';
 
 const CurrentBrews = () => {
 
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          onPress={() => navigation.navigate('Add')}
-          title="Add"
-          color="#4287f5"
-        />
-      )
-    })
-  })
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: () => (
+  //       <Button
+  //         onPress={() => navigation.navigate('Add')}
+  //         title="Add"
+  //         color="#4287f5"
+  //       />
+  //     )
+  //   })
+  // })
 
   return (
     <View style={styles.container}>
