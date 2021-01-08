@@ -7,6 +7,8 @@ export function getHeaderTitle(route) {
     case 'Current':
       return 'Brews in Progress';
     case 'Completed':
-      return 'Completed Brews';
+      return 'Brew Archive';
+    case 'Club':
+      return 'The Brew Club';
   }
 }

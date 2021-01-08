@@ -8,7 +8,6 @@ class BrewForm extends Component {
 
     }
   }
-
   render() {
     return (
       <View>
@@ -17,7 +16,7 @@ class BrewForm extends Component {
         <TextInput placeholder="Start date" />
         <TextInput placeholder="End date" />
         <Text>Ingredients</Text>
-        <TextInput placeholder="Tea type" /> 
+        <TextInput placeholder="Tea type" />
         <TextInput placeholder="Tea measurement" />
         <TextInput placeholder="Water measurement" />
         <TextInput placeholder="Sugar measurement" />
@@ -26,13 +25,22 @@ class BrewForm extends Component {
         <TextInput placeholder="Flavors" />
         <TextInput placeholder="Finish date" />
         <TextInput placeholder="Notes" />
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
           <Text>Let's Brew!</Text>
         </TouchableOpacity>
       </View>
     );
   }
-
 }
+
+const styles = StyleSheet.create({
+  button: {
+    alignSelf: "stretch",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#59cbbd",
+    marginTop: 30
+  }
+});
 
 export default BrewForm;

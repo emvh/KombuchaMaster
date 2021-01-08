@@ -9,7 +9,7 @@ import { getHeaderTitle } from '../utils/HeaderTitle';
 
 const Tab = createBottomTabNavigator();
 
-const NavigationTabs = ( {navigation, route} ) => {
+const NavigationTabs = ({ navigation, route }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -20,7 +20,7 @@ const NavigationTabs = ( {navigation, route} ) => {
           title="Add"
           color="#4287f5"
         />
-      ) : null
+      ) : null,
     })
   }, [navigation, route]);
 
@@ -29,13 +29,13 @@ const NavigationTabs = ( {navigation, route} ) => {
       <Tab.Screen
         name="Current"
         component={CurrentBrews}
-        options={{ tabBarLabel: "#1" }}
+        options={{ tabBarLabel: "The Current" }}
       />
       <Tab.Screen name="Completed" component={CompletedBrews}
-        options={{ tabBarLabel: "#2" }}
+        options={{ tabBarLabel: "The Completed" }}
       />
       <Tab.Screen name="Club" component={BrewersClub}
-        options={{ tabBarLabel: "#3" }}
+        options={{ tabBarLabel: "The Club" }}
       />
     </Tab.Navigator>
   )
