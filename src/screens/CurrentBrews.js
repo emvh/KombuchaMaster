@@ -1,10 +1,26 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const CurrentBrews = () => {
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => navigation.navigate('Add')}
+          title="Add"
+          color="#4287f5"
+        />
+      )
+    })
+  })
+
   return (
     <View style={styles.container}>
-      <Text>hello brews</Text>
+      <Text>hello current brew babies</Text>
     </View>
   )
 };
