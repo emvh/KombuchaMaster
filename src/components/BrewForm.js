@@ -1,7 +1,7 @@
 import React, { Component, useState, useCallback, useEffect } from 'react';
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
-import { Container, Header, Content, Form, Icon, Item, Input, Label, Picker, Textarea } from 'native-base';
+import { Container, Header, Content, Form, Icon, Item, Input, Label, Picker, Text, Textarea } from 'native-base';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { getBrewDays } from '../utils/GetBrewDays.js'
 
@@ -11,6 +11,7 @@ const BrewForm = () => {
   const [formDate, setFormDate] = useState();
   const [endDate, setEndDate] = useState();
   const [selected2, setSelect] = useState();
+  const [tea, setTeaType] = useState();
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -22,7 +23,6 @@ const BrewForm = () => {
   };
 
   const handleConfirm = (date) => {
-    console.log('test date', date)
     setStartDate(date);
     let dateToString = date.toString().substr(4, 12);
     setFormDate(dateToString);
@@ -31,6 +31,10 @@ const BrewForm = () => {
 
   const onValueChange2 = (value: string) => {
     setSelect(value);
+  };
+
+  const onTeaValueChange = (value: string) => {
+    setTeaType(value);
   };
 
   const addDays = (startDate, days) => {
@@ -43,7 +47,6 @@ const BrewForm = () => {
   useEffect(() => {
     if (formDate && selected2) {
       const days = getBrewDays(selected2);
-      console.log('variables', startDate, days)
       const end = addDays(startDate, days);
       setEndDate(end);
     }
@@ -55,7 +58,6 @@ const BrewForm = () => {
 
           <Item fixedLabel>
             <Label>Brew Name</Label>
-            {/* <Text>{formDate}</Text> */}
             <Input />
           </Item>
 
@@ -63,12 +65,13 @@ const BrewForm = () => {
 
           <Item fixedLabel onPress={showDatePicker}>
             <Label>Start Date</Label>
-            {/* <Input>{formDate}</Input> */}
-            <Text>{formDate}</Text>
+            <Input>{formDate}</Input>
+            {/* <Text>{formDate}</Text> */}
           </Item>
 
           <Item fixedLabel>
           <Label>Brewing Days</Label>
+
             <Item picker>
                 <Picker
                   mode="dropdown"
@@ -91,7 +94,8 @@ const BrewForm = () => {
 
           <Item fixedLabel >
             <Label>End Date</Label>
-            <Text>{endDate}</Text>
+            <Input>{endDate}</Input>
+            {/* <Text>{endDate}</Text> */}
           </Item>
 
           <Text>Ingredients</Text>
@@ -107,9 +111,9 @@ const BrewForm = () => {
                 style={{ width: undefined }}
                 placeholder="Tea Type"
                 placeholderStyle={{ color: "#bfc6ea" }}
-                placeholderIconColor="#007aff"
-                selectedValue={selected2}
-                onValueChange={onValueChange2.bind(null)}
+                // placeholderIconColor="#007aff"
+                selectedValue={tea}
+                onValueChange={onTeaValueChange.bind(null)}
               >
                 <Picker.Item label="Black" value="key0" />
                 <Picker.Item label="Green" value="key1" />
@@ -159,8 +163,6 @@ const BrewForm = () => {
   );
 };
 
-export default BrewForm;
-
 const styles = StyleSheet.create({
   button: {
     alignSelf: "stretch",
@@ -171,4 +173,4 @@ const styles = StyleSheet.create({
   }
 });
 
-
+export default BrewForm;
