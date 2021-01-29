@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import CurrentBrews from '../screens/CurrentBrews.js';
 import CompletedBrews from '../screens/CompletedBrews.js';
-import BrewersClub from '../screens/BrewersClub.js';
+import BrewClub from '../screens/BrewClub.js';
 import { getHeaderTitle } from '../utils/HeaderTitle';
 
 const Tab = createBottomTabNavigator();
@@ -34,7 +34,7 @@ const NavigationTabs = ({ navigation, route }) => {
       <Tab.Screen name="Completed" component={CompletedBrews}
         options={{ tabBarLabel: "The Completed" }}
       />
-      <Tab.Screen name="Club" component={BrewersClub}
+      <Tab.Screen name="Club" component={BrewClub}
         options={{ tabBarLabel: "The Club" }}
       />
     </Tab.Navigator>
