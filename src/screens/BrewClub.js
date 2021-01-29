@@ -77,7 +77,7 @@ class BrewClub extends Component {
     }
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.container}>
         <Text>We need your permission!</Text>
       </View>
     )
