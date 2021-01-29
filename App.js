@@ -22,7 +22,8 @@ const App = () => {
           name="Add"
           component={AddBrew}
           options={{
-            headerTitle: "Add Brew"
+            headerTitle: "Add Brew",
+            headerBackTitle: "Back"
           }}
         />
       </Stack.Navigator>
