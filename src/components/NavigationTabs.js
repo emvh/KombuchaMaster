@@ -1,15 +1,13 @@
 import React, { useLayoutEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Button, View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CurrentBrews from '../screens/CurrentBrews.js';
 import CompletedBrews from '../screens/CompletedBrews.js';
 import BrewClub from '../screens/BrewClub.js';
-import { Button } from 'native-base';
 import { getHeaderTitle } from '../utils/HeaderTitle';
 import { displayNavigationIcon } from '../utils/NavigationIcon';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
 
 const Tab = createBottomTabNavigator();
 
