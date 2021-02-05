@@ -1,6 +1,5 @@
 import React, { Component, useState, useCallback, useEffect } from 'react';
-import { Button, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
-
+import { Button, StyleSheet, Switch, TextInput, TouchableOpacity, View } from 'react-native';
 import { Container, Header, Content, Form, Icon, Item, Input, Label, ListItem, Picker, Separator, Text, Textarea } from 'native-base';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { getBrewDays } from '../utils/GetBrewDays.js'
@@ -12,6 +11,8 @@ const BrewForm = () => {
   const [endDate, setEndDate] = useState();
   const [brewDays, setBrewDays] = useState();
   const [tea, setTeaType] = useState();
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -88,6 +89,21 @@ const BrewForm = () => {
                   <Picker.Item label="3" value="key2" />
                   <Picker.Item label="4" value="key3" />
                   <Picker.Item label="5" value="key4" />
+                  <Picker.Item label="6" value="key5" />
+                  <Picker.Item label="7" value="key6" />
+                  <Picker.Item label="8" value="key7" />
+                  <Picker.Item label="9" value="key8" />
+                  <Picker.Item label="10" value="key9" />
+                  <Picker.Item label="11" value="key10" />
+                  <Picker.Item label="12" value="key11" />
+                  <Picker.Item label="13" value="key12" />
+                  <Picker.Item label="14" value="key13" />
+                  <Picker.Item label="15" value="key14" />
+                  <Picker.Item label="16" value="key15" />
+                  <Picker.Item label="17" value="key16" />
+                  <Picker.Item label="18" value="key17" />
+                  <Picker.Item label="19" value="key18" />
+                  <Picker.Item label="20" value="key19" />
                 </Picker>
               </Item>
           </Item>
@@ -95,6 +111,15 @@ const BrewForm = () => {
           <Item fixedLabel>
             <Label>End Date</Label>
             <Text style={styles.date}>{endDate}</Text>
+          </Item>
+
+          <Item fixedLabel style={styles.reminder}>
+            <Label>Remind Me</Label>
+            <Switch
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+              style={styles.switch}
+            />
           </Item>
 
           <ListItem itemDivider/>
@@ -109,10 +134,8 @@ const BrewForm = () => {
               <Item picker style={styles.teaType}>
                 <Picker
                   mode="dropdown"
-                  style={{ width: undefined }}
                   placeholder="Tea Type"
                   placeholderStyle={{ color: "#bfc6ea" }}
-                  placeholderIconColor="#007aff"
                   selectedValue={tea}
                   onValueChange={onTeaValueChange.bind(null)}
                 >
@@ -151,7 +174,7 @@ const BrewForm = () => {
           <ListItem itemDivider/>
 
           <TouchableOpacity style={styles.button}>
-            <Text>Let's Brew!</Text>
+            <Text style={{ color: "white" }} >Let's Brew!</Text>
           </TouchableOpacity>
 
           <ListItem itemDivider/>
@@ -176,6 +199,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     margin: 10,
+    paddingTop: 40,
   },
   date: {
     flex: 2,
@@ -187,6 +211,12 @@ const styles = StyleSheet.create({
     flex: 2.3,
     fontSize: 17,
     borderBottomWidth: 0.1,
+  },
+  reminder: {
+    height: 50
+  },
+  switch: {
+    flex: 2
   },
   teaInput: {
     marginLeft: 90,
