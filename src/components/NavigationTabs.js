@@ -35,7 +35,7 @@ const NavigationTabs = ({ navigation, route }) => {
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        activeTintColor: '#59cbbd',
         inactiveTintColor: 'gray',
       }}
     >
