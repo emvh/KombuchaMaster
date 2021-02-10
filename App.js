@@ -8,9 +8,12 @@ import CurrentBrews from './src/screens/CurrentBrews.js';
 import AddBrew from './src/screens/AddBrew.js';
 import CompletedBrews from './src/screens/CompletedBrews.js';
 
+import { STREAM_API_KEY } from "@env"
+
 const Stack = createStackNavigator();
 
 const App = () => {
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Navigation">
