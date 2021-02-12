@@ -7,8 +7,10 @@ import NavigationTabs from './src/components/NavigationTabs.js';
 import CurrentBrews from './src/screens/CurrentBrews.js';
 import AddBrew from './src/screens/AddBrew.js';
 import CompletedBrews from './src/screens/CompletedBrews.js';
+import Login from './src/screens/Login.js';
+import Signup from './src/screens/Signup.js';
 
-import { STREAM_API_KEY } from "@env"
+import { API_KEY } from "@env"
 
 const Stack = createStackNavigator();
 
@@ -16,7 +18,15 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Navigation">
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
+        />
         <Stack.Screen
           name="Navigation"
           component={NavigationTabs}

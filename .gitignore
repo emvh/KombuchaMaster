@@ -13,4 +13,7 @@ web-build/
 .DS_Store
 
 # api keys
-.env  
+.env
+
+# firebase
+firebase
