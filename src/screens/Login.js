@@ -12,7 +12,7 @@ class Login extends React.Component {
 
   render() {
 
-    console.log('loginstate', this.state);
+    // console.log('loginstate', this.state);
     const { navigation } = this.props;
 
     return (

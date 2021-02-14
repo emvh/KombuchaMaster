@@ -21,7 +21,7 @@
     "expo-permissions": "^10.0.0",
     "expo-status-bar": "~1.0.3",
     "express": "^4.17.1",
-    "install": "^0.13.0",
+    "firebase": "^7.9.0",
     "mongoose": "^5.11.15",
     "native-base": "^2.15.2",
     "nodemon": "^2.0.7",
@@ -34,8 +34,7 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.0",
-    "react-native-web": "^0.14.10",
-    "firebase": "7.9.0"
+    "react-native-web": "^0.14.10"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

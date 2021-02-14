@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Firebase from '../firebase/config.js';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -9,7 +10,14 @@ class Signup extends React.Component {
       lastName: '',
       email: '',
       password: ''
-    }
+    };
+    this.handleSignup = this.handleSignup.bind(this);
+  }
+  handleSignup = () => {
+    const { email, password } = this.state
+    Firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => this.props.navigation.navigate('Navigation'))
+      .catch((error) => console.log(error))
   }
   render() {
     return (
@@ -41,7 +49,7 @@ class Signup extends React.Component {
           placeholder='Password'
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={this.handleSignup}>
           <Text>Signup</Text>
         </TouchableOpacity>
 
