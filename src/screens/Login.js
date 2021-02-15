@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Firebase from '../firebase/config.js';
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,6 +9,20 @@ class Login extends React.Component {
       email: '',
       password: ''
     }
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin() {
+    const { navigation } = this.props;
+    const { email, password } = this.state;
+    Firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => {
+      navigation.navigate('Navigation');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
   }
 
   render() {
@@ -36,6 +51,7 @@ class Login extends React.Component {
 
         <TouchableOpacity
           style={styles.button}
+          onPress={this.handleLogin}
         >
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>

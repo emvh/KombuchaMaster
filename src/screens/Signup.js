@@ -13,7 +13,7 @@ class Signup extends React.Component {
     };
     this.handleSignup = this.handleSignup.bind(this);
   }
-  handleSignup = () => {
+  handleSignup() {
     const { email, password } = this.state
     Firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(() => this.props.navigation.navigate('Navigation'))
@@ -49,7 +49,10 @@ class Signup extends React.Component {
           placeholder='Password'
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.button} onPress={this.handleSignup}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.handleSignup}
+        >
           <Text>Signup</Text>
         </TouchableOpacity>
 
