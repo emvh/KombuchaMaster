@@ -3,7 +3,8 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-
+import KombuchaIcon from '../icons/KombuchaIcon.js';
+import * as Svg from 'react-native-svg';
 
 class BrewClub extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class BrewClub extends Component {
 
   getGeocodeAsync = async (location) => {
     let geocode = await Location.reverseGeocodeAsync(location);
-    this.setState({ geocode }, () => console.log('State: ', this.state));
+    this.setState({ geocode }, () => console.log('STATE: ', this.state));
   }
 
   render() {
@@ -50,12 +51,13 @@ class BrewClub extends Component {
       return (
         <View style={styles.container}>
           <MapView style={styles.map}
+            provider={MapView.PROVIDER_GOOGLE}
             showsUserLocation={true}
             showsMyLocationButton={true}
             showsCompass={true}
             initialRegion={{
-              latitude,
-              longitude,
+              latitude: 37.372005747940115,
+              longitude: -121.99427743391863,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
@@ -63,12 +65,21 @@ class BrewClub extends Component {
 
           <Marker
             coordinate={{
+              // latitude: 48.8583,
+              // longitude: 2.2923,
               latitude: 37.372005747940115,
               longitude: -121.99427743391863,
             }}
             title='Costco'
             description='i luv costco!'
           >
+            <View style={styles.marker}>
+              {/* <Text>test</Text> */}
+              <KombuchaIcon />
+              {/* <Svg>
+                <KombuchaIcon />
+              </Svg> */}
+            </View>
           </Marker>
 
           </MapView>
@@ -94,6 +105,11 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
   },
+  marker: {
+    flexDirection: 'row',
+    width: 100,
+    height: 40
+  }
 });
 
 export default BrewClub;
