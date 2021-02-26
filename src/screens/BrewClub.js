@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Callout, CalloutSubview, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
@@ -74,14 +74,25 @@ class BrewClub extends Component {
             description='i luv costco!'
           >
             <View style={styles.marker}>
-              {/* <Text>test</Text> */}
               <KombuchaIcon />
-              {/* <Svg>
-                <KombuchaIcon />
-              </Svg> */}
             </View>
+            <Callout tooltip>
+              <View>
+                <View style={styles.callout}>
+                  <Text style={styles.itemTitle}>Scoby</Text>
+                  <Text>$10</Text>
+                  <CalloutSubview
+                    style={styles.calloutButton}
+                    onPress={() => console.log('clicked')}
+                  >
+                    <Text style={styles.buttonText}>Email Me</Text>
+                  </CalloutSubview>
+                </View>
+                <View style={styles.calloutArrowBorder} />
+                <View style={styles.calloutArrow} />
+              </View>
+            </Callout>
           </Marker>
-
           </MapView>
         </View>
       )
@@ -109,6 +120,48 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: 100,
     height: 40
+  },
+  callout: {
+    flexDirection: 'column',
+    alignSelf: 'flex-start',
+    backgroundColor: '#fff',
+    borderRadius: 6,
+    borderColor: '#ccc',
+    borderWidth: 0.5,
+    padding: 15,
+    width: 150
+  },
+  calloutArrow: {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderTopColor: '#fff',
+    borderWidth: 16,
+    alignSelf: 'center',
+    marginTop: -32
+  },
+  calloutArrowBorder: {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderTopColor: '#007a87',
+    borderWidth: 16,
+    alignSelf: 'center',
+    marginTop: -0.5
+  },
+  calloutButton: {
+    backgroundColor: '#59cbbd',
+    width: '100%',
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 3,
+  },
+  buttonText: {
+    color: 'white',
+  },
+  itemTitle: {
+    fontSize: 14,
+    marginBottom: 5,
+    fontWeight: 'bold'
   }
 });
 
