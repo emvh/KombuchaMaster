@@ -1,18 +1,26 @@
-import React, { Component, useState, useCallback, useEffect } from 'react';
-import { Button, StyleSheet, Switch, TextInput, TouchableOpacity, View } from 'react-native';
-import { Container, Header, Content, Form, Icon, Item, Input, Label, ListItem, Picker, Separator, Text, Textarea } from 'native-base';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Switch, TouchableOpacity } from 'react-native';
+import { Container, Form, Icon, Item, Input, Label, ListItem, Picker, Text, Textarea } from 'native-base';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { getBrewDays } from '../utils/GetBrewDays.js'
 
-const BrewForm = () => {
+const BrewForm = (props) => {
+  const [brewName, setBrewName] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [startDate, setStartDate] = useState();
-  const [formDate, setFormDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const [brewDays, setBrewDays] = useState();
-  const [tea, setTeaType] = useState();
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [startDateISO, setStartDateISO] = useState();
+  const [startDate, setStartDate] = useState('');
+  const [brewDays, setBrewDays] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [tea, setTeaType] = useState('');
+  const [teaValue, setTeaValue] = useState();
+  const [waterValue, setWaterValue] = useState();
+  const [sugarValue, setSugarValue] = useState();
+  const [starterTeaValue, setStarterTeaValue] = useState();
+  const [notes, setNotes] = useState('');
+  const [reminderEnabled, setReminder] = useState(false);
+
+  const brewNameInput = (brewName) => {
+    setBrewName(brewName);
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -22,10 +30,10 @@ const BrewForm = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
-    setStartDate(date);
-    let dateToString = date.toString().substr(4, 12);
-    setFormDate(dateToString);
+  const handleConfirmDate = (date) => {
+    setStartDateISO(date);
+    let dateToString = date.toString().substr(4, 11);
+    setStartDate(dateToString);
     hideDatePicker();
   };
 
@@ -33,165 +41,235 @@ const BrewForm = () => {
     setBrewDays(value);
   };
 
-  const onTeaValueChange = (value: string) => {
+  const toggleSwitch = () => setReminder(previousState => !previousState);
+
+  useEffect(() => {
+    if (startDateISO && brewDays) {
+      let end = new Date(startDateISO);
+      end.setDate(end.getDate() + Number(brewDays));
+      end = end.toString().substr(4, 11);
+      setEndDate(end);
+    }
+  });
+
+  const onTeaTypeChange = (value: string) => {
     setTeaType(value);
   };
 
-  const addDays = (startDate, days) => {
-    let result = new Date(startDate);
-    result.setDate(result.getDate() + days);
-    result = result.toString().substr(4, 12)
-    return result;
-  }
+  const teaInput = (teaValue) => {
+    setTeaValue(teaValue);
+  };
 
-  useEffect(() => {
-    if (formDate && brewDays) {
-      const days = getBrewDays(brewDays);
-      const end = addDays(startDate, days);
-      setEndDate(end);
+  const waterInput = (waterValue) => {
+    setWaterValue(waterValue);
+  };
+
+  const sugarInput = (sugarValue) => {
+    setSugarValue(sugarValue);
+  };
+
+  const starterTeaInput = (starterTeaValue) => {
+    setStarterTeaValue(starterTeaValue);
+  };
+
+  const notesInput = (notes) => {
+    setNote(notes);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formResponse = {
+      brewName,
+      startDateISO,
+      startDate,
+      brewDays,
+      endDate,
+      tea,
+      teaValue,
+      waterValue,
+      sugarValue,
+      starterTeaValue,
+      notes
     }
-  })
+    console.log('formResponse', formResponse);
+    props.navigation.navigate('Navigation');
+  };
 
   return (
-      <Container style={styles.container}>
+    <Container style={styles.container}>
 
-        <Form>
-          <ListItem itemDivider/>
+      <Form>
 
-          <Item fixedLabel>
-            <Label>Brew Name</Label>
-            <Input />
+        <ListItem itemDivider/>
+
+        <Item fixedLabel>
+          <Label>Brew Name</Label>
+          <Input
+            value={brewName}
+            onChangeText={brewNameInput}
+          />
+        </Item>
+
+        <ListItem itemDivider/>
+
+        <ListItem itemDivider>
+          <Text>1st Fermentation</Text>
+        </ListItem>
+
+        <Item fixedLabel onPress={showDatePicker} >
+          <Label>Start Date</Label>
+          <Text style={styles.date}>{startDate}</Text>
+        </Item>
+
+        <Item fixedLabel>
+        <Label>Brewing Days</Label>
+          <Item picker style={styles.brewDaysPicker}>
+            <Picker
+              mode="dropdown"
+              placeholder="# Days"
+              placeholderStyle={{ color: "#bfc6ea" }}
+              selectedValue={brewDays}
+              onValueChange={onBrewDaysValueChange.bind(null)}
+            >
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
+              <Picker.Item label="5" value="5" />
+              <Picker.Item label="6" value="6" />
+              <Picker.Item label="7" value="7" />
+              <Picker.Item label="8" value="8" />
+              <Picker.Item label="9" value="9" />
+              <Picker.Item label="10" value="10" />
+              <Picker.Item label="11" value="11" />
+              <Picker.Item label="12" value="12" />
+              <Picker.Item label="13" value="13" />
+              <Picker.Item label="14" value="14" />
+              <Picker.Item label="15" value="15" />
+              <Picker.Item label="16" value="16" />
+              <Picker.Item label="17" value="17" />
+              <Picker.Item label="18" value="18" />
+              <Picker.Item label="19" value="19" />
+              <Picker.Item label="20" value="20" />
+            </Picker>
           </Item>
+        </Item>
 
-          <ListItem itemDivider/>
+        <Item fixedLabel>
+          <Label>End Date</Label>
+          <Text style={styles.date}>{endDate}</Text>
+        </Item>
 
-          <ListItem itemDivider>
-            <Text>1st Fermentation</Text>
-          </ListItem>
+        <Item fixedLabel style={styles.reminder}>
+          <Label>Remind Me</Label>
+          <Switch
+            onValueChange={toggleSwitch}
+            value={reminderEnabled}
+            style={styles.switch}
+          />
+        </Item>
 
-          <Item fixedLabel onPress={showDatePicker} >
-            <Label>Start Date</Label>
-            <Text style={styles.date}>{formDate}</Text>
+        <ListItem itemDivider/>
+        <ListItem itemDivider>
+          <Text>Ingredients</Text>
+        </ListItem>
+
+        <Item fixedLabel>
+          <Label>Tea</Label>
+          <Input
+            style={styles.teaInput}
+            placeholderTextColor="#bfc6ea"
+            placeholder='#'
+            value={teaValue}
+            onChangeText={teaInput}
+          />
+          <Text style={styles.teaMeasurement}>Tbsp/Teabags</Text>
+          <Item picker style={styles.teaType}>
+            <Picker
+              mode="dropdown"
+              placeholder="Tea Type"
+              placeholderStyle={{ color: "#bfc6ea" }}
+              selectedValue={tea}
+              onValueChange={onTeaTypeChange.bind(null)}
+            >
+              <Picker.Item label="Black" value="Black" />
+              <Picker.Item label="Green" value="Green" />
+              <Picker.Item label="Oolong" value="Ooolong" />
+              <Picker.Item label="White" value="White" />
+              <Picker.Item label="Other" value="Other" />
+            </Picker>
           </Item>
+        </Item>
 
-          <Item fixedLabel>
-          <Label>Brewing Days</Label>
-            <Item picker style={styles.brewDaysPicker}>
-                <Picker
-                  mode="dropdown"
-                  placeholder="# Days"
-                  placeholderStyle={{ color: "#bfc6ea" }}
-                  selectedValue={brewDays}
-                  onValueChange={onBrewDaysValueChange.bind(null)}
-                >
-                  <Picker.Item label="1" value="key0" />
-                  <Picker.Item label="2" value="key1" />
-                  <Picker.Item label="3" value="key2" />
-                  <Picker.Item label="4" value="key3" />
-                  <Picker.Item label="5" value="key4" />
-                  <Picker.Item label="6" value="key5" />
-                  <Picker.Item label="7" value="key6" />
-                  <Picker.Item label="8" value="key7" />
-                  <Picker.Item label="9" value="key8" />
-                  <Picker.Item label="10" value="key9" />
-                  <Picker.Item label="11" value="key10" />
-                  <Picker.Item label="12" value="key11" />
-                  <Picker.Item label="13" value="key12" />
-                  <Picker.Item label="14" value="key13" />
-                  <Picker.Item label="15" value="key14" />
-                  <Picker.Item label="16" value="key15" />
-                  <Picker.Item label="17" value="key16" />
-                  <Picker.Item label="18" value="key17" />
-                  <Picker.Item label="19" value="key18" />
-                  <Picker.Item label="20" value="key19" />
-                </Picker>
-              </Item>
-          </Item>
+        <Item fixedLabel style={styles.itemField}>
+          <Label style={styles.ingredientLabel}>Water</Label>
+          <Input
+            style={styles.inputCups}
+            placeholderTextColor="#bfc6ea"
+            placeholder='#'
+            value={waterValue}
+            onChangeText={waterInput}
+          />
+          <Text style={styles.cupsText}>Cups</Text>
+        </Item>
+        <Item fixedLabel>
+          <Label style={styles.ingredientLabel}>Sugar</Label>
+          <Input
+            style={styles.inputCups}
+            placeholderTextColor="#bfc6ea"
+            placeholder='#'
+            value={sugarValue}
+            onChangeText={sugarInput}
+          />
+          <Text style={styles.cupsText}>Cups</Text>
+        </Item>
+        <Item fixedLabel style={styles.itemField}>
+          <Label style={styles.ingredientLabel}>Starter Tea</Label>
+          <Input
+            style={styles.inputCups}
+            placeholderTextColor="#bfc6ea"
+            placeholder='#'
+            value={starterTeaValue}
+            onChangeText={starterTeaInput}
+          />
+          <Text style={styles.cupsText}>Cups</Text>
+        </Item>
 
-          <Item fixedLabel>
-            <Label>End Date</Label>
-            <Text style={styles.date}>{endDate}</Text>
-          </Item>
+        <ListItem itemDivider/>
+        <ListItem itemDivider>
+          <Text>Notes</Text>
+        </ListItem>
 
-          <Item fixedLabel style={styles.reminder}>
-            <Label>Remind Me</Label>
-            <Switch
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-              style={styles.switch}
-            />
-          </Item>
-
-          <ListItem itemDivider/>
-          <ListItem itemDivider>
-            <Text>Ingredients</Text>
-          </ListItem>
-
-            <Item fixedLabel>
-              <Label>Tea</Label>
-              <Input style={styles.teaInput} placeholderTextColor="#bfc6ea" placeholder='#'></Input>
-              <Text style={styles.teaMeasurement}>Tbsp/Teabags</Text>
-              <Item picker style={styles.teaType}>
-                <Picker
-                  mode="dropdown"
-                  placeholder="Tea Type"
-                  placeholderStyle={{ color: "#bfc6ea" }}
-                  selectedValue={tea}
-                  onValueChange={onTeaValueChange.bind(null)}
-                >
-                  <Picker.Item label="Black" value="key0" />
-                  <Picker.Item label="Green" value="key1" />
-                  <Picker.Item label="Oolong" value="key2" />
-                  <Picker.Item label="White" value="key3" />
-                  <Picker.Item label="Other" value="key4" />
-                </Picker>
-              </Item>
-            </Item>
-
-          <Item fixedLabel style={styles.itemField}>
-            <Label style={styles.ingredientLabel}>Water</Label>
-            <Input style={styles.inputCups} placeholderTextColor="#bfc6ea" placeholder='#'/>
-            <Text style={styles.cupsText}>Cups</Text>
-          </Item>
-          <Item fixedLabel>
-            <Label style={styles.ingredientLabel}>Sugar</Label>
-            <Input style={styles.inputCups} placeholderTextColor="#bfc6ea" placeholder='#'/>
-            <Text style={styles.cupsText}>Cups</Text>
-          </Item>
-          <Item fixedLabel style={styles.itemField}>
-            <Label style={styles.ingredientLabel}>Starter Tea</Label>
-            <Input style={styles.inputCups} placeholderTextColor="#bfc6ea" placeholder='#'/>
-            <Text style={styles.cupsText}>Cups</Text>
-          </Item>
-
-          <ListItem itemDivider/>
-          <ListItem itemDivider>
-            <Text>Notes</Text>
-          </ListItem>
-
-          <Textarea rowSpan={3} placeholder="Add brew notes" />
-
-          <ListItem itemDivider/>
-
-          <TouchableOpacity style={styles.button}>
-            <Text style={{ color: "white" }} >Let's Brew!</Text>
-          </TouchableOpacity>
-
-          <ListItem itemDivider/>
-          <ListItem itemDivider/>
-          <ListItem itemDivider/>
-          <ListItem itemDivider/>
-
-        </Form>
-
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
+        <Textarea
+          rowSpan={3}
+          placeholder="Add brew notes"
+          value={notes}
+          onChangeText={setNotes}
         />
+        <ListItem itemDivider/>
 
-      </Container>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit}
+        >
+          <Text style={{ color: "white" }}>Let's Brew!</Text>
+        </TouchableOpacity>
+
+        <ListItem itemDivider/>
+        <ListItem itemDivider/>
+        <ListItem itemDivider/>
+        <ListItem itemDivider/>
+
+      </Form>
+
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleConfirmDate}
+        onCancel={hideDatePicker}
+      />
+
+    </Container>
   );
 };
 
