@@ -9,22 +9,19 @@ db.once('open', function() {
 
 const brewSchema = new mongoose.Schema({
   brewId: Number,
-  name: String,
-  startDate: String,
-  brewingDays: Number,
+  brewName: String,
+  startDateISO: Date,
+  brewDays: String,
   endDate: String,
-  reminder: Boolean,
-  teaMeasurement: Number,
+  reminderEnabled: Boolean,
   teaType: String,
-  waterMeasurement: Number,
-  sugarMeasurement: Number,
-  starterTeaMeasurement: Number,
+  teaValue: String,
+  waterValue: String,
+  sugarValue: String,
+  starterTeaValue: String,
   notes: String
-});
+}); 
 
 const Brew = mongoose.model('Brew', brewSchema);
 
-module.exports = {
-  db,
-  Brew
-}
+module.exports = Brew;
