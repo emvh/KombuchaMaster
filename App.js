@@ -9,8 +9,7 @@ import AddBrew from './src/screens/AddBrew.js';
 import CompletedBrews from './src/screens/CompletedBrews.js';
 import Login from './src/screens/Login.js';
 import Signup from './src/screens/Signup.js';
-
-import { API_KEY } from "@env"
+import Firebase from './src/firebase/config.js';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +17,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Navigation">
         <Stack.Screen
           name="Login"
           component={Login}
