@@ -1,11 +1,15 @@
-const db = require('../database');
+const Brew = require('../database');
 
 const getBrews = (callback) => {
-  console.log('getBrews')
-  db.Brew.find(callback);
+  Brew.find(callback);
 };
 
+const addBrew = (newBrew, callback) => {
+  Brew.create(newBrew, callback);
+}
+
 module.exports = {
-  getBrews
+  getBrews,
+  addBrew
 }
 
