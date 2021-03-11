@@ -10,7 +10,7 @@ const BrewForm = (props) => {
   const [startDate, setStartDate] = useState('');
   const [brewDays, setBrewDays] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [tea, setTeaType] = useState('');
+  const [teaType, setTeaType] = useState('');
   const [teaValue, setTeaValue] = useState();
   const [waterValue, setWaterValue] = useState();
   const [sugarValue, setSugarValue] = useState();
@@ -78,20 +78,21 @@ const BrewForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formResponse = {
+    const brew = {
       brewName,
       startDateISO,
       startDate,
       brewDays,
       endDate,
-      tea,
+      reminderEnabled,
+      teaType,
       teaValue,
       waterValue,
       sugarValue,
       starterTeaValue,
       notes
     }
-    console.log('formResponse', formResponse);
+    props.addToBrewList(brew);
     props.navigation.navigate('Navigation');
   };
 
@@ -189,7 +190,7 @@ const BrewForm = (props) => {
               mode="dropdown"
               placeholder="Tea Type"
               placeholderStyle={{ color: "#bfc6ea" }}
-              selectedValue={tea}
+              selectedValue={teaType}
               onValueChange={onTeaTypeChange.bind(null)}
             >
               <Picker.Item label="Black" value="Black" />
@@ -242,7 +243,7 @@ const BrewForm = (props) => {
 
         <Textarea
           rowSpan={3}
-          placeholder="Add brew notes"
+          placeholder="Add my brewing notes"
           value={notes}
           onChangeText={setNotes}
         />
