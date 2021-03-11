@@ -1,43 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import axios from 'axios';
 import { StyleSheet, Text, View } from 'react-native';
 import BrewForm from '../components/BrewForm.js';
+import { AppContext } from '../contexts/AppContext.js'
 
-class AddBrew extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      brews: [],
-    };
-    this.addToBrewList = this.addToBrewList.bind(this);
+const AddBrew = (props) => {
+
+  const { brewList, setBrewList } = useContext(AppContext);
+
+  const addToBrewList = (formResponse) => {
+    setBrewList(brewList.concat(formResponse));
   }
 
-  addToBrewList(brew) {
-    console.log('addbrewpage', brew)
-    axios({
-      url: 'http://127.0.0.1:3000/api/brews',
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      data: brew,
-    })
-      .then(() => console.log('added brew'))
-      .catch(error => console.log(error))
-  }
-
-  render() {
-    const { navigation } = this.props;
-    return (
-      <View style={styles.container}>
-        <BrewForm
-          navigation={navigation}
-          addToBrewList={this.addToBrewList}
-        />
-      </View>
-    );
-  };
+  return (
+    <View style={styles.container}>
+      <BrewForm
+        navigation={props.navigation}
+        addToBrewList={addToBrewList}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

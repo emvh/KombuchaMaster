@@ -31,6 +31,13 @@ export const AppContextProvider = (props) => {
   );
 };
 
+export const useBrewList = () => {
+  const context = React.useContext(AppContext);
+  if (context === undefined) {
+    throw new Error('must be used within provider')
+  }
+  return context;
+ };
 
 
 
