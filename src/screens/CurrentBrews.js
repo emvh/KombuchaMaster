@@ -1,41 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { Component, useCallback, useContext, useState } from 'react';
+import axios from 'axios';
 import { StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
+import { AppContext } from '../contexts/AppContext.js'
 
 const CurrentBrews = () => {
 
+  const context = useContext(AppContext);
+
+  if (!context.brewList) {
+    return null;
+  } else {
+    const listItems = context.brewList.map(brew =>
+      <ListItem
+        avatar
+        key={brew._id}
+      >
+        <Left>
+          <Thumbnail source={{ uri: 'Image URL' }} />
+        </Left>
+        <Body>
+          <Text>{brew.brewName}</Text>
+          <Text note>Brew ready: {brew.endDate} </Text>
+        </Body>
+      </ListItem>
+    );
   return (
-    // <View style={styles.container}>
-    //   <Text>hello current brew babies</Text>
-    // </View>
-      <Container>
-          <Content>
-            <List>
-              <ListItem avatar>
-                <Left>
-                  <Thumbnail source={{ uri: 'Image URL' }} />
-                </Left>
-                <Body>
-                  <Text>brew name</Text>
-                  <Text note>end date ... </Text>
-                </Body>
-                {/* <Right>
-                  <Text note>3:43 pm</Text>
-                </Right> */}
-              </ListItem>
-            </List>
-          </Content>
-      </Container>
-  );
+    <Container>
+      <Content>
+        <List>
+          {listItems}
+        </List>
+      </Content>
+    </Container>
+    );
+  }
 };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 export default CurrentBrews;
+
