@@ -6,10 +6,11 @@ export const AppContext = createContext(null);
 export const AppContextProvider = (props) => {
 
   const [brewList, setBrewList] = useState(null);
+  const [brew, updateBrew] = useState(null);
 
   useEffect(() => {
     getData();
-  }, [])
+  }, [brewList])
 
   const getData = () => {
     axios({
@@ -24,20 +25,17 @@ export const AppContextProvider = (props) => {
       .catch(error => console.log(error));
   };
 
+  const updateList = () => {
+    console.log('updated list of brews...');
+    getData();
+  }
+
   return (
-    <AppContext.Provider value={{ brewList, setBrewList }}>
+    <AppContext.Provider value={{ brewList, setBrewList, updateList }}>
       {props.children}
     </AppContext.Provider>
   );
 };
-
-export const useBrewList = () => {
-  const context = React.useContext(AppContext);
-  if (context === undefined) {
-    throw new Error('must be used within provider')
-  }
-  return context;
- };
 
 
 

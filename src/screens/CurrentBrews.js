@@ -2,10 +2,10 @@ import React, { Component, useCallback, useContext, useState } from 'react';
 import axios from 'axios';
 import { StyleSheet, View } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
+import { Button, Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
 import { AppContext } from '../contexts/AppContext.js'
 
-const CurrentBrews = () => {
+const CurrentBrews = (props) => {
 
   const context = useContext(AppContext);
 

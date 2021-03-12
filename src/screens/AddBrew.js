@@ -6,20 +6,30 @@ import { AppContext } from '../contexts/AppContext.js'
 
 const AddBrew = (props) => {
 
-  const { brewList, setBrewList } = useContext(AppContext);
+  const { brewList, setBrewList, updateList } = useContext(AppContext);
 
   const addToBrewList = (formResponse) => {
-    setBrewList(brewList.concat(formResponse));
+    axios({
+      url: 'http://127.0.0.1:3000/api/brews',
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      data: formResponse,
+    })
+      .then(() => updateList())
+      .catch(error => console.log(error))
   }
 
-  return (
-    <View style={styles.container}>
-      <BrewForm
-        navigation={props.navigation}
-        addToBrewList={addToBrewList}
-      />
-    </View>
-  );
+    return (
+      <View style={styles.container}>
+        <BrewForm
+          navigation={props.navigation}
+          addToBrewList={addToBrewList}
+        />
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
