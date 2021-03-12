@@ -25,13 +25,23 @@ export const AppContextProvider = (props) => {
       .catch(error => console.log(error));
   };
 
-  const updateList = () => {
+  const postData = (formResponse) => {
     console.log('updated list of brews...');
-    getData();
+    axios({
+      url: 'http://127.0.0.1:3000/api/brews',
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      data: formResponse,
+    })
+      .then(() => getData())
+      .catch(error => console.log(error))
   }
 
   return (
-    <AppContext.Provider value={{ brewList, setBrewList, updateList }}>
+    <AppContext.Provider value={{ brewList, setBrewList, postData }}>
       {props.children}
     </AppContext.Provider>
   );
