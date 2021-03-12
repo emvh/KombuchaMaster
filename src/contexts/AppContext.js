@@ -10,7 +10,7 @@ export const AppContextProvider = (props) => {
 
   useEffect(() => {
     getData();
-  }, [brewList])
+  }, [])
 
   const getData = () => {
     axios({
