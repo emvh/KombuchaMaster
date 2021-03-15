@@ -10,7 +10,13 @@ const getBrews = (selectedBrewId, callback) => {
 
 const addBrew = (newBrew, callback) => {
   Brew.create(newBrew, callback);
-}
+};
+
+const updateBrew = (updatedBrew, callback) => {
+  const filter = { _id: updatedBrew._id };
+  const update = updatedBrew
+  Brew.findByIdAndUpdate(filter, update, { new: true }, callback);
+ };
 
 module.exports = {
   getBrews,

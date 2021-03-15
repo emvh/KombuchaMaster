@@ -29,6 +29,17 @@ app.post('/api/brews', (req, res) => {
   })
 });
 
+app.put('/api/brews', (req, res) => {
+  const updatedBrew = req.body;
+  model.updateBrew(updatedBrew, (err, data) => {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  })
+ });
+
 app.listen(port, () => {
   console.log(`KombuchaMaster listening at http://localhost:${port}`)
 })
