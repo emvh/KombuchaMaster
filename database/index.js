@@ -11,6 +11,7 @@ const brewSchema = new mongoose.Schema({
   brewId: Number,
   brewName: String,
   startDateISO: Date,
+  startDate: String,
   brewDays: String,
   endDate: String,
   reminderEnabled: Boolean,
@@ -20,7 +21,7 @@ const brewSchema = new mongoose.Schema({
   sugarValue: String,
   starterTeaValue: String,
   notes: String
-}); 
+});
 
 const Brew = mongoose.model('Brew', brewSchema);
 

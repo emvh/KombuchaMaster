@@ -8,7 +8,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/api/brews', (req, res) => {
-  model.getBrews((err, data) => {
+  const selectedBrewId = req.query._id;
+  model.getBrews(selectedBrewId, (err, data) => {
     if (err) {
       res.status(404).send(err);
     } else {

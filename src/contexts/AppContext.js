@@ -6,23 +6,32 @@ export const AppContext = createContext(null);
 export const AppContextProvider = (props) => {
 
   const [brewList, setBrewList] = useState(null);
-  const [brew, updateBrew] = useState(null);
+  const [selectedBrew, setSelectedBrew] = useState(null);
 
   useEffect(() => {
     getData();
   }, [])
 
-  const getData = () => {
-    axios({
-      url: 'http://127.0.0.1:3000/api/brews',
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => setBrewList(response.data))
-      .catch(error => console.log(error));
+  const getData = (selectedBrewId) => {
+      axios({
+        url: 'http://127.0.0.1:3000/api/brews',
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        params: { _id: selectedBrewId }
+      })
+        .then((response) => {
+          if (Array.isArray(response.data)) {
+            setBrewList(response.data);
+            console.log('array brew list', brewList);
+          } else {
+            setSelectedBrew(response.data);
+            console.log('obj selected brew', selectedBrew);
+          }
+        })
+        .catch(error => console.log(error));
   };
 
   const postData = (formResponse) => {
@@ -41,7 +50,7 @@ export const AppContextProvider = (props) => {
   }
 
   return (
-    <AppContext.Provider value={{ brewList, setBrewList, postData }}>
+    <AppContext.Provider value={{ brewList, getData, postData, selectedBrew }}>
       {props.children}
     </AppContext.Provider>
   );

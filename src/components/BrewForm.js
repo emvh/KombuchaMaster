@@ -4,6 +4,9 @@ import { Container, Form, Icon, Item, Input, Label, ListItem, Picker, Text, Text
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const BrewForm = (props) => {
+
+  console.log('hi brew form');
+
   const [brewName, setBrewName] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [startDateISO, setStartDateISO] = useState();
@@ -106,7 +109,7 @@ const BrewForm = (props) => {
         <Item fixedLabel>
           <Label>Brew Name</Label>
           <Input
-            value={brewName}
+            value={brewName || props.brewName}
             onChangeText={brewNameInput}
           />
         </Item>
@@ -119,7 +122,7 @@ const BrewForm = (props) => {
 
         <Item fixedLabel onPress={showDatePicker} >
           <Label>Start Date</Label>
-          <Text style={styles.date}>{startDate}</Text>
+          <Text style={styles.date}>{startDate || props.startDate}</Text>
         </Item>
 
         <Item fixedLabel>
@@ -129,7 +132,7 @@ const BrewForm = (props) => {
               mode="dropdown"
               placeholder="# Days"
               placeholderStyle={{ color: "#bfc6ea" }}
-              selectedValue={brewDays}
+              selectedValue={brewDays || props.brewDays}
               onValueChange={onBrewDaysValueChange.bind(null)}
             >
               <Picker.Item label="1" value="1" />
@@ -158,14 +161,14 @@ const BrewForm = (props) => {
 
         <Item fixedLabel>
           <Label>End Date</Label>
-          <Text style={styles.date}>{endDate}</Text>
+          <Text style={styles.date}>{endDate || props.endDate}</Text>
         </Item>
 
         <Item fixedLabel style={styles.reminder}>
           <Label>Remind Me</Label>
           <Switch
             onValueChange={toggleSwitch}
-            value={reminderEnabled}
+            value={reminderEnabled || props.reminderEnabled}
             style={styles.switch}
           />
         </Item>
@@ -181,7 +184,7 @@ const BrewForm = (props) => {
             style={styles.teaInput}
             placeholderTextColor="#bfc6ea"
             placeholder='#'
-            value={teaValue}
+            value={teaValue || props.teaValue}
             onChangeText={teaInput}
           />
           <Text style={styles.teaMeasurement}>Tbsp/Teabags</Text>
@@ -190,7 +193,7 @@ const BrewForm = (props) => {
               mode="dropdown"
               placeholder="Tea Type"
               placeholderStyle={{ color: "#bfc6ea" }}
-              selectedValue={teaType}
+              selectedValue={teaType || props.teaType}
               onValueChange={onTeaTypeChange.bind(null)}
             >
               <Picker.Item label="Black" value="Black" />
@@ -208,7 +211,7 @@ const BrewForm = (props) => {
             style={styles.inputCups}
             placeholderTextColor="#bfc6ea"
             placeholder='#'
-            value={waterValue}
+            value={waterValue || props.waterValue}
             onChangeText={waterInput}
           />
           <Text style={styles.cupsText}>Cups</Text>
@@ -219,7 +222,7 @@ const BrewForm = (props) => {
             style={styles.inputCups}
             placeholderTextColor="#bfc6ea"
             placeholder='#'
-            value={sugarValue}
+            value={sugarValue || props.sugarValue}
             onChangeText={sugarInput}
           />
           <Text style={styles.cupsText}>Cups</Text>
@@ -230,7 +233,7 @@ const BrewForm = (props) => {
             style={styles.inputCups}
             placeholderTextColor="#bfc6ea"
             placeholder='#'
-            value={starterTeaValue}
+            value={starterTeaValue || props.starterTeaValue}
             onChangeText={starterTeaInput}
           />
           <Text style={styles.cupsText}>Cups</Text>
@@ -244,7 +247,7 @@ const BrewForm = (props) => {
         <Textarea
           rowSpan={3}
           placeholder="Add my brewing notes"
-          value={notes}
+          value={notes || props.notes}
           onChangeText={setNotes}
         />
         <ListItem itemDivider/>
@@ -253,7 +256,8 @@ const BrewForm = (props) => {
           style={styles.button}
           onPress={handleSubmit}
         >
-          <Text style={{ color: "white" }}>Let's Brew!</Text>
+          {(props.brewName) && <Text style={{ color: "white" }}>Update Brew!</Text>}
+          {(!props.brewName) && <Text style={{ color: "white" }}>Let's Brew!</Text>}
         </TouchableOpacity>
 
         <ListItem itemDivider/>
