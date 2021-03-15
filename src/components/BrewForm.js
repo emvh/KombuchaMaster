@@ -95,7 +95,7 @@ const BrewForm = (props) => {
       starterTeaValue,
       notes
     }
-    props.addToBrewList(brew);
+    props.addOrUpdateBrew(brew);
     props.navigation.navigate('Navigation');
   };
 

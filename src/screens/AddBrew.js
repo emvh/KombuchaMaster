@@ -10,7 +10,7 @@ const AddBrew = (props) => {
 
   const { brewList, selectedBrew, getData, postData, updateData } = useContext(AppContext);
 
-  const addToBrewList = (formResponse) => postData(formResponse);
+  const addBrew = (formResponse) => postData(formResponse);
 
   const updateBrew = (formResponse) => updateData(formResponse)
 
@@ -18,7 +18,6 @@ const AddBrew = (props) => {
     useEffect(() => {
       getData(props.route.params._id);
     }, []);
-    console.log('add brew - selected brew', selectedBrew);
     if (!selectedBrew) {
       return null;
     } else {
@@ -51,7 +50,7 @@ const AddBrew = (props) => {
             starterTeaValue={starterTeaValue}
             notes={notes}
             navigation={props.navigation}
-            addToBrewList={updateBrew}
+            addOrUpdateBrew={updateBrew}
           />
         </View>
       );
@@ -62,7 +61,7 @@ const AddBrew = (props) => {
       <View style={styles.container}>
         <BrewForm
           navigation={props.navigation}
-          addToBrewList={addToBrewList}
+          addOrUpdateBrew={addBrew}
         />
       </View>
     );
