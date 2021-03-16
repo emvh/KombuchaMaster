@@ -12,9 +12,11 @@ const AddBrew = (props) => {
 
   const addBrew = (formResponse) => postData(formResponse);
 
-  const updateBrew = (formResponse) => updateData(formResponse)
+  const updateBrew = (formResponse) => {
+    updateData(formResponse);
+  };
 
-  if (props.route.params && props.route.params.task === 'update') {
+  if (props.route.params && props.route.params.task === 'edit') {
     useEffect(() => {
       getData(props.route.params._id);
     }, []);
@@ -22,7 +24,9 @@ const AddBrew = (props) => {
       return null;
     } else {
       const {
+        _id,
         brewName,
+        startDateISO,
         startDate,
         brewDays,
         endDate,
@@ -34,11 +38,13 @@ const AddBrew = (props) => {
         starterTeaValue,
         notes
       } = selectedBrew;
+
       return (
         <View style={styles.container}>
           <BrewForm
-            navigation={props.navigation}
+            _id={_id}
             brewName={brewName}
+            startDateISO={startDateISO}
             startDate={startDate}
             brewDays={brewDays}
             endDate={endDate}

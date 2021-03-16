@@ -7,18 +7,18 @@ const BrewForm = (props) => {
 
   console.log('hi brew form');
 
-  const [brewName, setBrewName] = useState('');
+  const [brewName, setBrewName] = useState(null);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [startDateISO, setStartDateISO] = useState();
-  const [startDate, setStartDate] = useState('');
-  const [brewDays, setBrewDays] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [teaType, setTeaType] = useState('');
-  const [teaValue, setTeaValue] = useState();
-  const [waterValue, setWaterValue] = useState();
-  const [sugarValue, setSugarValue] = useState();
-  const [starterTeaValue, setStarterTeaValue] = useState();
-  const [notes, setNotes] = useState('');
+  const [startDateISO, setStartDateISO] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [brewDays, setBrewDays] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [teaType, setTeaType] = useState(null);
+  const [teaValue, setTeaValue] = useState(null);
+  const [waterValue, setWaterValue] = useState(null);
+  const [sugarValue, setSugarValue] = useState(null);
+  const [starterTeaValue, setStarterTeaValue] = useState(null);
+  const [notes, setNotes] = useState(null);
   const [reminderEnabled, setReminder] = useState(false);
 
   const brewNameInput = (brewName) => {
@@ -47,13 +47,13 @@ const BrewForm = (props) => {
   const toggleSwitch = () => setReminder(previousState => !previousState);
 
   useEffect(() => {
-    if (startDateISO && brewDays) {
-      let end = new Date(startDateISO);
-      end.setDate(end.getDate() + Number(brewDays));
+    if ((startDateISO || props.startDateISO) && (brewDays || props.brewDays)) {
+      let end = new Date(startDateISO || props.startDateISO);
+      end.setDate(end.getDate() + Number(brewDays || props.brewDays));
       end = end.toString().substr(4, 11);
       setEndDate(end);
     }
-  });
+  }, [startDate, brewDays, endDate]);
 
   const onTeaTypeChange = (value: string) => {
     setTeaType(value);
@@ -82,19 +82,21 @@ const BrewForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const brew = {
-      brewName,
-      startDateISO,
-      startDate,
-      brewDays,
-      endDate,
-      reminderEnabled,
-      teaType,
-      teaValue,
-      waterValue,
-      sugarValue,
-      starterTeaValue,
-      notes
-    }
+      _id: props._id,
+      brewName: brewName || props.brewName,
+      startDateISO: startDateISO || props.startDateISO,
+      startDate: startDate || props.startDate,
+      brewDays: brewDays || props.brewDays,
+      endDate: endDate || props.endDate,
+      reminderEnabled: reminderEnabled || props.reminderEnabled,
+      teaType: teaType || props.teaType,
+      teaValue: teaValue || props.teaValue,
+      waterValue: waterValue || props.waterValue,
+      sugarValue: sugarValue || props.sugarValue,
+      starterTeaValue: starterTeaValue || props.starterTeaValue,
+      notes: notes || props.notes
+    };
+    console.log('brew', brew);
     props.addOrUpdateBrew(brew);
     props.navigation.navigate('Navigation');
   };

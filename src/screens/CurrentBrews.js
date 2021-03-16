@@ -7,15 +7,21 @@ import { AppContext } from '../contexts/AppContext.js'
 
 const CurrentBrews = (props) => {
 
-  const context = useContext(AppContext);
+  console.log('hi current brews');
 
-  if (!context.brewList) {
+  const { brewList } = useContext(AppContext);
+
+  if (!brewList) {
     return null;
   } else {
-    const listItems = context.brewList.map(brew =>
+    const listItems = brewList.map(brew =>
       <ListItem
         avatar
         key={brew._id}
+        onPress={() => props.navigation.navigate('Add', {
+          _id: brew._id,
+          task: 'edit',
+        })}
       >
         <Left>
           <Thumbnail source={{ uri: 'Image URL' }} />

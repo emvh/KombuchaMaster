@@ -25,17 +25,16 @@ export const AppContextProvider = (props) => {
         .then((response) => {
           if (Array.isArray(response.data)) {
             setBrewList(response.data);
-            console.log('array brew list', brewList);
+            // console.log('getData:brewList');
           } else {
             setSelectedBrew(response.data);
-            console.log('obj selected brew', selectedBrew);
+            // console.log('getData:selectedbrew', selectedBrew);
           }
         })
         .catch(error => console.log(error));
   };
 
   const postData = (formResponse) => {
-    console.log('updated list of brews...');
     axios({
       url: 'http://127.0.0.1:3000/api/brews',
       method: 'POST',
@@ -49,8 +48,25 @@ export const AppContextProvider = (props) => {
       .catch(error => console.log(error))
   }
 
+  const updateData = (formResponse) => {
+    axios({
+      url: 'http://127.0.0.1:3000/api/brews',
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      data: formResponse,
+    })
+      .then(() => {
+        getData();
+        setSelectedBrew(formResponse);
+      })
+      .catch(error => console.log(error));
+  }
+
   return (
-    <AppContext.Provider value={{ brewList, getData, postData, selectedBrew }}>
+    <AppContext.Provider value={{ brewList, selectedBrew, getData, postData, updateData }}>
       {props.children}
     </AppContext.Provider>
   );
