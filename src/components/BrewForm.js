@@ -19,7 +19,7 @@ const BrewForm = (props) => {
   const [sugarValue, setSugarValue] = useState(null);
   const [starterTeaValue, setStarterTeaValue] = useState(null);
   const [notes, setNotes] = useState(null);
-  const [reminderEnabled, setReminder] = useState(false);
+  const [reminderEnabled, setReminder] = useState(null);
 
   const brewNameInput = (brewName) => {
     setBrewName(brewName);
@@ -44,7 +44,9 @@ const BrewForm = (props) => {
     setBrewDays(value);
   };
 
-  const toggleSwitch = () => setReminder(previousState => !previousState);
+  const toggleSwitch = () => {
+    setReminder(!reminderEnabled);
+  };
 
   useEffect(() => {
     if ((startDateISO || props.startDateISO) && (brewDays || props.brewDays)) {
@@ -52,8 +54,16 @@ const BrewForm = (props) => {
       end.setDate(end.getDate() + Number(brewDays || props.brewDays));
       end = end.toString().substr(4, 11);
       setEndDate(end);
+    };
+  }, [startDate, brewDays, props.endDate]);
+
+  useEffect(() => {
+    if (props.reminderEnabled === undefined) {
+      setReminder(false);
+    } else {
+      setReminder(props.reminderEnabled);
     }
-  }, [startDate, brewDays, endDate]);
+  },[props.reminderEnabled]);
 
   const onTeaTypeChange = (value: string) => {
     setTeaType(value);
@@ -88,7 +98,7 @@ const BrewForm = (props) => {
       startDate: startDate || props.startDate,
       brewDays: brewDays || props.brewDays,
       endDate: endDate || props.endDate,
-      reminderEnabled: reminderEnabled || props.reminderEnabled,
+      reminderEnabled: reminderEnabled,
       teaType: teaType || props.teaType,
       teaValue: teaValue || props.teaValue,
       waterValue: waterValue || props.waterValue,
@@ -103,9 +113,7 @@ const BrewForm = (props) => {
 
   return (
     <Container style={styles.container}>
-
       <Form>
-
         <ListItem itemDivider/>
 
         <Item fixedLabel>
@@ -170,7 +178,7 @@ const BrewForm = (props) => {
           <Label>Remind Me</Label>
           <Switch
             onValueChange={toggleSwitch}
-            value={reminderEnabled || props.reminderEnabled}
+            value={reminderEnabled}
             style={styles.switch}
           />
         </Item>
