@@ -12,8 +12,4 @@ web-build/
 # macOS
 .DS_Store
 
-# api keys
-.env
-
-# firebase
-firebase
+node_modules

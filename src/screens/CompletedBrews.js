@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const CompletedBrews = () => {
+  console.log('hi completed brews');
+
   return (
     <View style={styles.container}>
       <Text>completed brews</Text>

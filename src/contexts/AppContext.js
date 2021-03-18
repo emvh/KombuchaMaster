@@ -24,11 +24,9 @@ export const AppContextProvider = (props) => {
       })
         .then((response) => {
           if (Array.isArray(response.data)) {
-            setBrewList(response.data);
-            // console.log('getData:brewList');
+            return setBrewList(response.data);
           } else {
             setSelectedBrew(response.data);
-            // console.log('getData:selectedbrew', selectedBrew);
           }
         })
         .catch(error => console.log(error));

@@ -13,6 +13,8 @@ const Tab = createBottomTabNavigator();
 
 const NavigationTabs = ({ navigation, route }) => {
 
+  console.log('hi navigation tabs');
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: getHeaderTitle(route),

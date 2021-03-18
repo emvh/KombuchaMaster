@@ -7,26 +7,18 @@ import NavigationTabs from './src/components/NavigationTabs.js';
 import CurrentBrews from './src/screens/CurrentBrews.js';
 import AddBrew from './src/screens/AddBrew.js';
 import CompletedBrews from './src/screens/CompletedBrews.js';
-import Login from './src/screens/Login.js';
-import Signup from './src/screens/Signup.js';
-import { AppContext, AppContextProvider } from './src/contexts/AppContext.js'
+import { AppContext, AppContextProvider } from './src/contexts/AppContext.js';
 
 const Stack = createStackNavigator();
 
 const App = () => {
 
+  console.log('hi App');
+
   return (
     <AppContextProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Navigation">
-          <Stack.Screen
-            name="Login"
-            component={Login}
-          />
-          <Stack.Screen
-            name="Signup"
-            component={Signup}
-          />
           <Stack.Screen
             name="Navigation"
             component={NavigationTabs}
