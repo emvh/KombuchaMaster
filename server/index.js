@@ -15,7 +15,7 @@ app.get('/api/brews', (req, res) => {
     } else {
       res.status(200).send(data);
     }
-  })
+  });
 });
 
 app.post('/api/brews', (req, res) => {
@@ -38,7 +38,7 @@ app.put('/api/brews', (req, res) => {
     } else {
       res.status(200).send(data);
     }
-  })
+  });
  });
 
  app.delete('/api/brews', (req, res) => {
@@ -49,7 +49,7 @@ app.put('/api/brews', (req, res) => {
     } else {
       res.status(200).send(data);
     }
-  })
+  });
  });
 
 app.listen(port, () => {
