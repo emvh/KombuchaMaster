@@ -12,22 +12,25 @@ const CurrentBrews = (props) => {
 
   console.log('hi current brews');
 
-  const { brewList } = useContext(AppContext);
+  const { brewList, deleteData } = useContext(AppContext);
   if (!brewList) {
     return null;
   } else {
-    const archiveBrew = (rowMap, rowKey) => {
-      closeRow(rowMap, rowKey);
+    const archiveBrew = (swipeRowObj, id) => {
+      closeRow(swipeRowObj, id);
     }
 
-    const closeRow = (rowMap, rowKey) => {
-      if (rowMap[rowKey]) {
-        rowMap[rowKey].closeRow();
+    const closeRow = (swipeRowObj, id) => {
+      console.log('rowMap')
+      if (swipeRowObj[id]) {
+        swipeRowObj[id].closeRow();
       }
     };
 
-    const deleteBrew = (rowMap, rowKey) => {
-      closeRow(rowMap, rowKey);
+    const deleteBrew = (swipeRowObj, id) => {
+      closeRow(swipeRowObj, id);
+      console.log(id)
+      deleteData(id);
     };
 
     const renderBrewItem = (brew) => {
@@ -61,18 +64,19 @@ const CurrentBrews = (props) => {
       );
     };
 
-    const renderHiddenButtons = (brew, rowMap) => {
+    const renderHiddenButtons = (brew, swipeRowObj) => {
+      // console.log(brew.item)
       return (
         <View style={styles.hiddenButtons}>
           <TouchableOpacity
             style={[styles.backRightBtn, styles.backRightBtnLeft]}
-            onPress={() => closeRow(rowMap, brew.item.key)}
+            onPress={() => closeRow(swipeRowObj, brew.item._id)}
           >
             <Ionicons name={'ios-archive-outline'} size={25} color='green' />
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.backRightBtn, styles.backRightBtnRight]}
-            onPress={() => deleteBrew(rowMap, brew.item.key)}
+            onPress={() => deleteBrew(swipeRowObj, brew.item._id)}
           >
             <Ionicons name={'ios-trash-outline'} size={25} color='red' />
           </TouchableOpacity>
@@ -84,7 +88,7 @@ const CurrentBrews = (props) => {
         <SwipeListView
           data={brewList}
           renderItem={renderBrewItem}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => item._id}
           renderHiddenItem={renderHiddenButtons}
           disableRightSwipe={true}
           leftOpenValue={75}

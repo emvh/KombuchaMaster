@@ -13,14 +13,19 @@ const addBrew = (newBrew, callback) => {
 };
 
 const updateBrew = (updatedBrew, callback) => {
-  const filter = { _id: updatedBrew._id };
-  const update = updatedBrew
-  Brew.findByIdAndUpdate(filter, update, { new: true }, callback);
+  const id = { _id: updatedBrew._id };
+  const update = updatedBrew;
+  Brew.findByIdAndUpdate(id, update, { new: true }, callback);
+ };
+
+ const deleteBrew = (brewId, callback) => {
+   Brew.deleteOne(brewId, callback);
  };
 
 module.exports = {
   getBrews,
   addBrew,
   updateBrew,
+  deleteBrew,
 }
 

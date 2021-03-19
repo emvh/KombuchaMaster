@@ -63,8 +63,23 @@ export const AppContextProvider = (props) => {
       .catch(error => console.log(error));
   }
 
+  const deleteData = (brewId) => {
+    console.log(brewId)
+    axios({
+      url: 'http://127.0.0.1:3000/api/brews',
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      data: { _id: brewId },
+    })
+      .then(() => getData())
+      .catch(error => console.log(error));
+  }
+
   return (
-    <AppContext.Provider value={{ brewList, selectedBrew, getData, postData, updateData }}>
+    <AppContext.Provider value={{ brewList, selectedBrew, getData, postData, updateData, deleteData }}>
       {props.children}
     </AppContext.Provider>
   );

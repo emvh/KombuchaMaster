@@ -38,7 +38,7 @@ const AddBrew = (props) => {
         starterTeaValue,
         notes
       } = selectedBrew;
-      
+
       return (
         <View style={styles.container}>
           <BrewForm

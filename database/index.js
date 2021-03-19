@@ -20,7 +20,8 @@ const brewSchema = new mongoose.Schema({
   waterValue: String,
   sugarValue: String,
   starterTeaValue: String,
-  notes: String
+  notes: String,
+  status: String
 });
 
 const Brew = mongoose.model('Brew', brewSchema);

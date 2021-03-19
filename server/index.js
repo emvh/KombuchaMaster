@@ -20,11 +20,12 @@ app.get('/api/brews', (req, res) => {
 
 app.post('/api/brews', (req, res) => {
   const newBrew = req.body;
+  newBrew.status = 'Current';
   model.addBrew(newBrew, (err, data) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(data);
+      res.status(201).send(data);
     }
   })
 });
@@ -32,6 +33,17 @@ app.post('/api/brews', (req, res) => {
 app.put('/api/brews', (req, res) => {
   const updatedBrew = req.body;
   model.updateBrew(updatedBrew, (err, data) => {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  })
+ });
+
+ app.delete('/api/brews', (req, res) => {
+  const brewId = req.body;
+  model.deleteBrew(brewId, (err, data) => {
     if (err) {
       res.status(404).send(err);
     } else {
