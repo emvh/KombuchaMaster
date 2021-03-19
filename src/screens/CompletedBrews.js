@@ -1,14 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+'react-native-swipe-list-view';
+import SwipeList from '../components/SwipeList.js'
 
-const CompletedBrews = () => {
+const CompletedBrews = (props) => {
+
   console.log('hi completed brews');
 
   return (
-    <View style={styles.container}>
-      <Text>completed brews</Text>
-    </View>
-  )
+    <SwipeList
+      screen='CompletedBrews'
+      navigation={props.navigation}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
