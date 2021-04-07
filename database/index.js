@@ -26,4 +26,17 @@ const brewSchema = new mongoose.Schema({
 
 const Brew = mongoose.model('Brew', brewSchema);
 
-module.exports = Brew;
+const markerSchema = new mongoose.Schema({
+  title: String,
+  latitude: Number,
+  longitude: Number,
+  description: String,
+  price: Number,
+});
+
+const Marker = mongoose.model('Marker', markerSchema);
+
+module.exports = {
+  Brew,
+  Marker,
+};
