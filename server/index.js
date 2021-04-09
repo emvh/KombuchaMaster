@@ -64,11 +64,12 @@ app.put('/api/brews', (req, res) => {
  });
 
  app.post('/api/markers', (req, res) => {
-  Marker.addMarker((err, data) => {
+  const newMarker = req.body;
+  Marker.addMarker(newMarker, (err, data) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(data);
+      res.status(201).send(data);
     }
   });
 });
