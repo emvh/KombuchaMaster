@@ -1,11 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import SwipeList from '../components/SwipeList.js'
+import SwipeList from '../components/SwipeList.js';
 
 const CurrentBrews = (props) => {
-
-  console.log('hi current brews');
-
   return (
     <SwipeList
       screen='CurrentBrews'

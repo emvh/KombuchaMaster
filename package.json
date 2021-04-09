@@ -16,7 +16,6 @@
     "@react-navigation/stack": "^5.12.8",
     "axios": "^0.21.1",
     "expo": "~40.0.0",
-    "expo-activity-feed": "^1.0.2",
     "expo-image-picker": "^9.2.1",
     "expo-linking": "^2.1.1",
     "expo-location": "~10.0.0",
@@ -40,9 +39,7 @@
     "react-native-web": "^0.14.10"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0",
-    "metro-react-native-babel-preset": "^0.65.0",
-    "react-native-dotenv": "^2.5.3"
+    "@babel/core": "~7.9.0"
   },
   "private": true
 }

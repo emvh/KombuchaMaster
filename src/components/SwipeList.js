@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { StyleSheet, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { Button, Container, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
-import { AppContext } from '../contexts/AppContext.js';
+import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { Button, Container, ListItem, Left, Body, Right, Text, Thumbnail } from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { AppContext } from '../contexts/AppContext.js';
 import KombuchaIcon from '../icons/KombuchaIcon.js';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import styles from '../styles/SwipeListStyles.js';
 
 const SwipeList = (props) => {
 
@@ -119,43 +120,5 @@ const SwipeList = (props) => {
    );
  }
 };
-
-const styles = StyleSheet.create({
- brewItem: {
-   alignItems: 'center',
-   backgroundColor: '#ffffff',
-   justifyContent: 'center',
-   height: 60,
- },
- hiddenButtons: {
-   alignItems: 'center',
-   backgroundColor: '#ffffff',
-   flex: 1,
-   flexDirection: 'row',
-   justifyContent: 'space-between',
-   height: 60,
-   paddingLeft: 15,
- },
- backRightBtn: {
-   alignItems: 'center',
-   bottom: 0,
-   justifyContent: 'center',
-   position: 'absolute',
-   top: 0,
-   width: 75,
- },
- backRightBtnLeft: {
-   right: 75,
-   height: 60,
- },
- backRightBtnRight: {
-   height: 60,
-   right: 0,
- },
- kombucha: {
-   height: 40,
-   width: 40,
- },
-});
 
 export default SwipeList;

@@ -8,7 +8,6 @@ db.once('open', function() {
 });
 
 const brewSchema = new mongoose.Schema({
-  brewId: Number,
   brewName: String,
   startDateISO: Date,
   startDate: String,

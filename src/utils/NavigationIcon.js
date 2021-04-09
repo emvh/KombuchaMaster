@@ -2,7 +2,7 @@ import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export function displayNavigationIcon(route, focused, color, size) {
+export function NavigationIcon(route, focused, color, size) {
   let iconName;
   switch (route.name) {
     case 'Current':

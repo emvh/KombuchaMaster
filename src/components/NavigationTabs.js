@@ -1,20 +1,16 @@
 import React, { useLayoutEffect } from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CurrentBrews from '../screens/CurrentBrews.js';
 import CompletedBrews from '../screens/CompletedBrews.js';
 import BrewClub from '../screens/BrewClub.js';
 import { getHeaderTitle } from '../utils/HeaderTitle';
-import { displayNavigationIcon } from '../utils/NavigationIcon';
+import { NavigationIcon } from '../utils/NavigationIcon';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
 const NavigationTabs = ({ navigation, route }) => {
-
-  console.log('hi navigation tabs');
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: getHeaderTitle(route),
@@ -33,7 +29,7 @@ const NavigationTabs = ({ navigation, route }) => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          return displayNavigationIcon(route, focused, color, size);
+          return NavigationIcon(route, focused, color, size);
         },
       })}
       tabBarOptions={{

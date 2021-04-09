@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MapView, { Callout, CalloutSubview, Marker } from 'react-native-maps';
+import * as Linking from 'expo-linking';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import KombuchaIcon from '../icons/KombuchaIcon.js';
 import * as Svg from 'react-native-svg';
-import * as Linking from 'expo-linking';
+import styles from '../styles/BrewClubStyles.js';
 
 class BrewClub extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class BrewClub extends Component {
   }
 
   render() {
-    const { latitude, longitude, location, markers } = this.state;
+    const { latitude, longitude, markers } = this.state;
 
     if (latitude) {
       return (
@@ -117,69 +118,10 @@ class BrewClub extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>We need your permission!</Text>
+        <Text>We need your permission to use your location!</Text>
       </View>
     )
   }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-  marker: {
-    flexDirection: 'row',
-    width: 100,
-    height: 40
-  },
-  callout: {
-    flexDirection: 'column',
-    alignSelf: 'flex-start',
-    backgroundColor: '#fff',
-    borderRadius: 6,
-    borderColor: '#ccc',
-    borderWidth: 0.5,
-    padding: 15,
-    width: 150
-  },
-  calloutArrow: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-    borderTopColor: '#fff',
-    borderWidth: 16,
-    alignSelf: 'center',
-    marginTop: -32
-  },
-  calloutArrowBorder: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-    borderTopColor: '#007a87',
-    borderWidth: 16,
-    alignSelf: 'center',
-    marginTop: -0.5
-  },
-  calloutButton: {
-    backgroundColor: '#59cbbd',
-    width: '100%',
-    padding: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 3,
-  },
-  buttonText: {
-    color: 'white',
-  },
-  itemTitle: {
-    fontSize: 14,
-    marginBottom: 5,
-    fontWeight: 'bold'
-  }
-});
 
 export default BrewClub;

@@ -1,12 +1,9 @@
-import React, { Component, useCallback, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { Component, useContext, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import BrewForm from '../components/BrewForm.js';
 import { AppContext } from '../contexts/AppContext.js';
 
 const AddBrew = (props) => {
-
-  console.log('hi add brew');
 
   const { brewList, selectedBrew, getData, postData, updateData } = useContext(AppContext);
 
