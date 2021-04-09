@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MapView, { Callout, CalloutSubview, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import KombuchaIcon from '../icons/KombuchaIcon.js';
 import * as Svg from 'react-native-svg';
+import * as Linking from 'expo-linking';
 
 class BrewClub extends Component {
   constructor(props) {
@@ -14,18 +16,19 @@ class BrewClub extends Component {
       latitude: null,
       longitude: null,
       location: null,
-      errorMessage: null
+      errorMessage: null,
+      markers: [],
     }
+    this.getMarkers = this.getMarkers.bind(this);
   }
 
   componentDidMount() {
+    this.getMarkers();
     this.getLocationAsync();
   }
 
   getLocationAsync = async () => {
     let { status } = await Location.requestPermissionsAsync();
-    // let { status } = await Permissions.getAsync(Permissions.LOCATION);
-
     if (status !== 'granted') {
       this.setState({
         errorMessage: 'Permission to access location was denied',
@@ -44,8 +47,23 @@ class BrewClub extends Component {
     this.setState({ geocode }, () => console.log('STATE: ', this.state));
   }
 
+  getMarkers() {
+    axios({
+      url: 'http://127.0.0.1:3000/api/markers',
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        this.setState({ markers: response.data })
+      })
+      .catch(error => console.log(error));
+  }
+
   render() {
-    const { latitude, longitude, location } = this.state;
+    const { latitude, longitude, location, markers } = this.state;
 
     if (latitude) {
       return (
@@ -62,37 +80,36 @@ class BrewClub extends Component {
               longitudeDelta: 0.0421,
             }}
           >
-
-          <Marker
-            coordinate={{
-              // latitude: 48.8583,
-              // longitude: 2.2923,
-              latitude: 37.372005747940115,
-              longitude: -121.99427743391863,
-            }}
-            title='Costco'
-            description='i luv costco!'
-          >
-            <View style={styles.marker}>
-              <KombuchaIcon />
-            </View>
-            <Callout tooltip>
-              <View>
-                <View style={styles.callout}>
-                  <Text style={styles.itemTitle}>Scoby</Text>
-                  <Text>$10</Text>
-                  <CalloutSubview
-                    style={styles.calloutButton}
-                    onPress={() => console.log('clicked')}
-                  >
-                    <Text style={styles.buttonText}>Email Me</Text>
-                  </CalloutSubview>
+            {markers.map((marker) => (
+              <Marker
+                key={marker._id}
+                coordinate={{
+                  latitude: marker.latitude,
+                  longitude: marker.longitude,
+                }}
+              >
+                <View style={styles.marker}>
+                  <KombuchaIcon />
                 </View>
-                <View style={styles.calloutArrowBorder} />
-                <View style={styles.calloutArrow} />
-              </View>
-            </Callout>
-          </Marker>
+                <Callout tooltip>
+                  <View>
+                    <View style={styles.callout}>
+                      <Text style={styles.itemTitle}>{marker.title}</Text>
+                      <Text>${marker.price}</Text>
+                      <Text>{marker.description}</Text>
+                      <CalloutSubview
+                        style={styles.calloutButton}
+                        onPress={() => Linking.openURL(`sms:+${marker.phone}&body=Hi ${marker.user}, I'm interested in your ${marker.title} listing on The Brew Club!`)}
+                      >
+                        <Text style={styles.buttonText}>Message Me</Text>
+                      </CalloutSubview>
+                    </View>
+                    <View style={styles.calloutArrowBorder} />
+                    <View style={styles.calloutArrow} />
+                  </View>
+                </Callout>
+              </Marker>
+            ))}
           </MapView>
         </View>
       )
