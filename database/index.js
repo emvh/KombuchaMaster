@@ -30,8 +30,10 @@ const markerSchema = new mongoose.Schema({
   title: String,
   latitude: Number,
   longitude: Number,
-  description: String,
   price: Number,
+  description: String,
+  user: String,
+  phone: Number,
 });
 
 const Marker = mongoose.model('Marker', markerSchema);
